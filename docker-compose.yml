@@ -33,7 +33,7 @@ services:
     container_name: wp-nginx
     volumes:
       - ./wordpress:/var/www/html
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ./modsec/modsecurity.conf:/etc/nginx/modsec/modsecurity.conf
       - ./modsec/crs-setup.conf:/etc/nginx/modsec/crs-setup.conf
     depends_on:
