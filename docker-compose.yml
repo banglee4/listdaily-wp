@@ -11,6 +11,8 @@ services:
       - ./wordpress:/var/www/html
     depends_on:
       - db
+    networks:
+      - coolify
 
   db:
     image: mariadb:10.11
@@ -23,12 +25,12 @@ services:
       MYSQL_PASSWORD: wppassword
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - coolify
 
   nginx:
     image: owasp/modsecurity-crs:nginx
     container_name: wp-nginx
-    ports:
-      - 80:80
     volumes:
       - ./wordpress:/var/www/html
       - ./nginx.conf:/etc/nginx/nginx.conf
@@ -36,6 +38,12 @@ services:
       - ./modsec/crs-setup.conf:/etc/nginx/modsec/crs-setup.conf
     depends_on:
       - wordpress
+    networks:
+      - coolify
 
 volumes:
   db_data:
+
+networks:
+  coolify:
+    external: true
